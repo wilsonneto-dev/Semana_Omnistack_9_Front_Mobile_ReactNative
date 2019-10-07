@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   KeyboardAvoidingView,
@@ -12,7 +12,16 @@ import {
 import imageLogo from '../assets/logo.png';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import api from '../services/api';
+
 export default function Login() {
+  const [email, setEmail] = useState('');  
+  const [tecnologias, setTecnologias] = useState('');  
+
+  async function handleSubmit() {
+    
+  }
+
   return (
     <KeyboardAvoidingView
       enabled={Platform.OS === 'ios'}
@@ -21,7 +30,7 @@ export default function Login() {
       <Image source={imageLogo} />
 
       <View style={styles.form}>
-        <Text style={styles.label}>TECNOLOGIAS *</Text>
+        <Text style={styles.label}>SEU E-MAIL {email} *</Text>
         <TextInput
           style={styles.input}
           placeholder="Seu E-mail"
@@ -29,18 +38,22 @@ export default function Login() {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          value={email}
+          OnChangeText={setEmail}
         />
 
-        <Text style={styles.label}>SEU E-MAIL *</Text>
+        <Text style={styles.label}>TECNOLOGIAS {tecnologias} *</Text>
         <TextInput
           style={styles.input}
           placeholder="Tecnologias"
           placeholderTextColor="#999"
           autoCapitalize="words"
           autoCorrect={false}
+          value={tecnologias}
+          onChangeText={setTecnologias}
         />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={handleSubmit} style={styles.button}>
           <Text style={styles.buttonText}>Logar</Text>
         </TouchableOpacity>
       </View>
