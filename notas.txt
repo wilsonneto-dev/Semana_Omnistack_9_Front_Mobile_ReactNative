@@ -1,0 +1,7 @@
+problema com Blank Screen:
+- parar packager
+- adb reverse tcp:8081 tcp:8081
+- executar packager
+resolver...
+
+---
