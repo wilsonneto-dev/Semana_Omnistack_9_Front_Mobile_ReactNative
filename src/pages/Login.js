@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet,
   Platform,
+  AsyncStorage,
 } from 'react-native';
 
 import imageLogo from '../assets/logo.png';
@@ -14,11 +15,20 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import api from '../services/api';
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [user, setUser] = useState('');
   const [tecnologias, setTecnologias] = useState('');
 
-  async function handleSubmit() {}
+  async function handleSubmit() {
+    const response = await api.post('/sessions', {
+      user,
+    });
+    const { _id } = response.data;
+    await AsyncStorage.setItem('user', _id);
+    await AsyncStorage.setItem('techs', tecnologias);
+
+    navigation.navigate('List');
+  }
 
   return (
     <KeyboardAvoidingView
@@ -31,7 +41,7 @@ export default function Login() {
         <Text style={styles.label}>SEU E-MAIL {user}</Text>
         <TextInput
           style={styles.input}
-          placeholder="Tecnologias"
+          placeholder="Email"
           placeholderTextColor="#999"
           autoCapitalize="none"
           autoCorrect={false}
