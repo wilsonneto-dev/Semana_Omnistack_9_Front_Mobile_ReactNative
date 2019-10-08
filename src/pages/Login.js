@@ -15,12 +15,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import api from '../services/api';
 
 export default function Login() {
-  const [email, setEmail] = useState('');  
-  const [tecnologias, setTecnologias] = useState('');  
+  const [user, setUser] = useState('');
+  const [tecnologias, setTecnologias] = useState('');
 
-  async function handleSubmit() {
-    
-  }
+  async function handleSubmit() {}
 
   return (
     <KeyboardAvoidingView
@@ -30,16 +28,16 @@ export default function Login() {
       <Image source={imageLogo} />
 
       <View style={styles.form}>
-        <Text style={styles.label}>SEU E-MAIL {email} *</Text>
+        <Text style={styles.label}>SEU E-MAIL {user}</Text>
         <TextInput
           style={styles.input}
-          placeholder="Seu E-mail"
+          placeholder="Tecnologias"
           placeholderTextColor="#999"
-          keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
-          value={email}
-          OnChangeText={setEmail}
+          keyboardType="email-address"
+          value={user}
+          onChangeText={setUser}
         />
 
         <Text style={styles.label}>TECNOLOGIAS {tecnologias} *</Text>
