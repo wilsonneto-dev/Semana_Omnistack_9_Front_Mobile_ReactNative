@@ -8,10 +8,10 @@ import {
   StyleSheet,
   Platform,
   AsyncStorage,
+  TouchableOpacity,
 } from 'react-native';
 
 import imageLogo from '../assets/logo.png';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import api from '../services/api';
 
@@ -20,14 +20,26 @@ export default function Login({ navigation }) {
   const [tecnologias, setTecnologias] = useState('');
 
   async function handleSubmit() {
-    const response = await api.post('/sessions', {
+    /* const response = await api.post('/sessions', {
       user,
-    });
-    const { _id } = response.data;
-    await AsyncStorage.setItem('user', _id);
-    await AsyncStorage.setItem('techs', tecnologias);
+    });*/
 
-    navigation.navigate('List');
+    api
+      .post('/sessions', {
+        user,
+      })
+      .then(() => {
+        console.log('then');
+      })
+      .catch(err => {
+        console.log('error', err);
+      });
+
+    // const { _id } = response.data;
+    // await AsyncStorage.setItem('user', _id);
+    // await AsyncStorage.setItem('techs', tecnologias);
+
+    // navigation.navigate('List');
   }
 
   return (
@@ -38,7 +50,7 @@ export default function Login({ navigation }) {
       <Image source={imageLogo} />
 
       <View style={styles.form}>
-        <Text style={styles.label}>SEU E-MAIL {user}</Text>
+        <Text style={styles.label}>SEU E-MAIL</Text>
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -50,7 +62,7 @@ export default function Login({ navigation }) {
           onChangeText={setUser}
         />
 
-        <Text style={styles.label}>TECNOLOGIAS {tecnologias} *</Text>
+        <Text style={styles.label}>TECNOLOGIAS</Text>
         <TextInput
           style={styles.input}
           placeholder="Tecnologias"

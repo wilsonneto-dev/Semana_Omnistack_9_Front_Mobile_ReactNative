@@ -20,11 +20,13 @@
     "@babel/core": "7.6.2",
     "@babel/runtime": "7.6.2",
     "@react-native-community/eslint-config": "0.0.3",
+    "async-storage": "^0.1.0",
     "babel-jest": "24.9.0",
     "eslint": "^6.5.1",
     "jest": "24.9.0",
     "metro-react-native-babel-preset": "0.51.1",
-    "react-test-renderer": "16.9.0"
+    "react-test-renderer": "16.9.0",
+    "reactotron-react-native": "^4.0.2"
   },
   "jest": {
     "preset": "react-native"
