@@ -25,11 +25,11 @@ export default function Login({ navigation }) {
     });*/
 
     api
-      .post('/sessions', {
+      .post('http://10.0.3.2:3333/sessions', {
         user,
       })
-      .then(() => {
-        console.log('then');
+      .then((r) => {
+        console.log('then', r.data);
       })
       .catch(err => {
         console.log('error', err);
