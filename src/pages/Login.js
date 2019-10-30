@@ -20,26 +20,17 @@ export default function Login({ navigation }) {
   const [tecnologias, setTecnologias] = useState('');
 
   async function handleSubmit() {
-    /* const response = await api.post('/sessions', {
+    const response = await api.post('sessions', {
       user,
-    });*/
+    });
 
-    api
-      .post('http://10.0.3.2:3333/sessions', {
-        user,
-      })
-      .then(r => {
-        console.log('then', r.data);
-      })
-      .catch(err => {
-        console.log('error', err);
-      });
+    console.log(response.data);
 
-    // const { _id } = response.data;
-    // await AsyncStorage.setItem('user', _id);
-    // await AsyncStorage.setItem('techs', tecnologias);
+    const { _id } = response.data;
+    await AsyncStorage.setItem('user', _id);
+    await AsyncStorage.setItem('techs', tecnologias);
 
-    // navigation.navigate('List');
+    navigation.navigate('List');
   }
 
   return (
