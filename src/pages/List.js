@@ -1,6 +1,16 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 
 export default function List() {
-  return <View></View>;
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    setUserId('10');
+  }, []);
+
+  return (
+    <View>
+      <Text>- {userId} -</Text>
+    </View>
+  );
 }
