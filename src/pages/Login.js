@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import {
   View,
   KeyboardAvoidingView,
@@ -7,9 +8,10 @@ import {
   Image,
   StyleSheet,
   Platform,
-  AsyncStorage,
   TouchableOpacity,
 } from 'react-native';
+
+import AsyncStorage from '@react-native-community/async-storage';
 
 import imageLogo from '../assets/logo.png';
 
@@ -22,13 +24,35 @@ export default function Login({ navigation }) {
   async function handleSubmit() {
     const response = await api.post('/sessions', { user });
 
-    const { _id } = response.data;
+    const { _id } = response.data.user;
     
     console.log(response.data);
     
     await AsyncStorage.setItem('user', _id);
     await AsyncStorage.setItem('techs', tecnologias);
 
+    const response = await api.post('sessions', {
+      user,
+    });
+
+    console.log(response.data);
+
+    const { _id } = response.data;
+
+    storeData = async () => {
+      try {
+        console.log('indo gravar no storage');
+        await AsyncStorage.setItem('user2', _id);
+        await AsyncStorage.setItem('techs2', tecnologias);
+        console.log('gravou');
+      } catch (e) {
+        console.log('deu ruim', e);
+      }
+    };
+
+    await storeData();
+
+    console.log(storeData);
     navigation.navigate('List');
   }
 
