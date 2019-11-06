@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   View,
@@ -21,6 +21,14 @@ export default function Login({ navigation }) {
   const [user, setUser] = useState('');
   const [tecnologias, setTecnologias] = useState('');
 
+  useEffect(() => {
+    AsyncStorage.getItem('user').then(userId => {
+      if (userId) {
+        navigation.navigate('List');
+      }
+    });
+  }, []);
+
   async function handleSubmit() {
     const response = await api.post('/sessions', { user });
 
@@ -35,15 +43,12 @@ export default function Login({ navigation }) {
       user,
     });
 
-    console.log(response.data);
-
-    const { _id } = response.data;
+    const { _id } = response.data.user;
 
     storeData = async () => {
       try {
-        console.log('indo gravar no storage');
-        await AsyncStorage.setItem('user2', _id);
-        await AsyncStorage.setItem('techs2', tecnologias);
+        await AsyncStorage.setItem('user', _id);
+        await AsyncStorage.setItem('techs', tecnologias);
         console.log('gravou');
       } catch (e) {
         console.log('deu ruim', e);
@@ -52,7 +57,6 @@ export default function Login({ navigation }) {
 
     await storeData();
 
-    console.log(storeData);
     navigation.navigate('List');
   }
 
