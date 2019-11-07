@@ -32,6 +32,23 @@ export default function SpotList(props) {
     loadSpots();
   }, []);
 
+  SpotListItem = ({ item }) => (
+    <View style={styles.listItem}>
+      <Image
+        style={styles.thumbnail}
+        source={{
+          uri:
+            /* item.thumbnail */ 'https://img.panoramamoveis.com.br/produto/7563/mesa-para-escritorio-angular-me4116-amendoa-tecno-mobili-194709-cape.jpg',
+        }}
+      />
+      <Text>{item.company}</Text>
+      <Text>{item.price ? `${item.price}` : 'Gratuito'}</Text>
+      <TouchableOpacity>
+        <Text>Solicitar Reserva</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -44,16 +61,7 @@ export default function SpotList(props) {
         keyExtractor={spot => spot._id}
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <View>
-            <Image source={{ uri: item.thumbnail }} />
-            <Text>{item.company}</Text>
-            <Text>{item.price ? `${item.price}` : 'Gratuito'}</Text>
-            <TouchableOpacity>
-              <Text>Solicitar Reserva</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        renderItem={({ item }) => <SpotListItem item={item} />}
       />
     </View>
   );
@@ -76,5 +84,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  list: {},
+  list: {
+    paddingHorizontal: 20,
+  },
+
+  listItem: {},
+
+  button: {},
+
+  thumbnail: {
+    width: 200,
+    height: 200,
+    resizeMode: 'cover',
+    borderRadius: 2,
+  },
 });
