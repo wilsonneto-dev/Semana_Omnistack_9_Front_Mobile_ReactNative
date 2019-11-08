@@ -8,10 +8,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import { withNavigation } from 'react-navigation';
+
 import api from '../services/api';
 
-export default function SpotList(props) {
-  const { tech } = props;
+const SpotList = props => {
+  const { tech, navigation } = props;
+
   const [spots, setSpots] = useState([]);
 
   const loadSpots = async () => {
@@ -19,32 +22,36 @@ export default function SpotList(props) {
       params: { tech },
     });
     console.log(response.data);
-    let arr = response.data;
-    arr.push(response.data);
-    arr.push(response.data);
-    arr.push(response.data);
-    arr.push(response.data);
-    arr.push(response.data);
-    setSpots(arr);
+    setSpots(response.data);
   };
 
   useEffect(() => {
     loadSpots();
   }, []);
 
-  SpotListItem = ({ item }) => (
+  const handleNavigation = id => {
+    navigation.navigate('Book', { id });
+  };
+
+  const SpotListItem = ({ item }) => (
     <View style={styles.listItem}>
       <Image
         style={styles.thumbnail}
         source={{
           uri:
-            /* item.thumbnail */ 'https://img.panoramamoveis.com.br/produto/7563/mesa-para-escritorio-angular-me4116-amendoa-tecno-mobili-194709-cape.jpg',
+            /* item.thumbnail */ 'http://agencia.sorocaba.sp.gov.br/wp-content/uploads/2019/05/coworkingpublico022.jpeg',
         }}
       />
-      <Text>{item.company}</Text>
-      <Text>{item.price ? `${item.price}` : 'Gratuito'}</Text>
-      <TouchableOpacity>
-        <Text>Solicitar Reserva</Text>
+      <Text style={styles.company}>{item.company}</Text>
+      <Text style={styles.price}>
+        {item.price ? `${item.price}` : 'Gratuito'}
+      </Text>
+      <TouchableOpacity
+        onPress={() => {
+          handleNavigation(item._id);
+        }}
+        style={styles.button}>
+        <Text style={styles.buttonText}>Solicitar Reserva</Text>
       </TouchableOpacity>
     </View>
   );
@@ -56,16 +63,16 @@ export default function SpotList(props) {
       </Text>
 
       <FlatList
-        style={styles.list}
+        contentContainerStyle={styles.list}
         data={spots}
         keyExtractor={spot => spot._id}
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <SpotListItem item={item} />}
+        renderItem={({ item, index }) => <SpotListItem item={item} />}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -88,14 +95,41 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  listItem: {},
-
-  button: {},
+  listItem: {
+    paddingRight: 10,
+  },
 
   thumbnail: {
     width: 200,
-    height: 200,
+    height: 120,
     resizeMode: 'cover',
     borderRadius: 2,
   },
+
+  company: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    marginTop: 10,
+  },
+  price: {
+    fontSize: 15,
+    color: '#999',
+    marginTop: 5,
+  },
+  button: {
+    height: 32,
+    backgroundColor: '#f05a5b',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 2,
+    marginTop: 15,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
+
+export default withNavigation(SpotList);
