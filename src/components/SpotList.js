@@ -34,30 +34,31 @@ const SpotList = props => {
   };
 
   const SpotListItem = ({ item }) => (
-    <View style={styles.listItem}>
-      <Image
-        style={styles.thumbnail}
-        source={{
-          uri:
-            /* item.thumbnail */ 'http://agencia.sorocaba.sp.gov.br/wp-content/uploads/2019/05/coworkingpublico022.jpeg',
-        }}
-      />
-      <Text style={styles.company}>{item.company}</Text>
-      <Text style={styles.price}>
-        {item.price ? `${item.price}` : 'Gratuito'}
-      </Text>
-      <TouchableOpacity
-        onPress={() => {
-          handleNavigation(item._id);
-        }}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Solicitar Reserva</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.listItem}>
+        <Image
+          style={styles.thumbnail}
+          source={{
+            uri:
+              item.thumbnail_url.replace('localhost', '10.0.3.2'),
+          }}
+        />
+        <Text style={styles.company}>{item.company}</Text>
+        <Text style={styles.price}>
+          {item.price ? `R$ ${item.price}/dia` : 'Gratuito'}
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            handleNavigation(item._id);
+          }}
+          style={styles.button}>
+          <Text style={styles.buttonText}>Solicitar Reserva</Text>
+        </TouchableOpacity>
+      </View>
   );
 
   return (
-    <View style={styles.container}>
+    (spots.length > 0) ? (
+      <View style={styles.container}>
       <Text style={styles.title}>
         Empresas que usam <Text style={styles.bold}>{tech}</Text>
       </Text>
@@ -71,6 +72,8 @@ const SpotList = props => {
         renderItem={({ item, index }) => <SpotListItem item={item} />}
       />
     </View>
+
+    ) : (<></>)
   );
 };
 

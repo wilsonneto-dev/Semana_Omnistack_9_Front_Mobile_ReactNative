@@ -39,24 +39,6 @@ export default function Login({ navigation }) {
     await AsyncStorage.setItem('user', _id);
     await AsyncStorage.setItem('techs', tecnologias);
 
-    const response = await api.post('sessions', {
-      user,
-    });
-
-    const { _id } = response.data.user;
-
-    storeData = async () => {
-      try {
-        await AsyncStorage.setItem('user', _id);
-        await AsyncStorage.setItem('techs', tecnologias);
-        console.log('gravou');
-      } catch (e) {
-        console.log('deu ruim', e);
-      }
-    };
-
-    await storeData();
-
     navigation.navigate('List');
   }
 
