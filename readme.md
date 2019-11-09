@@ -10,15 +10,15 @@ Projeto recria de maneira simplista a interface do Airbnb, abordando comunicaç�
 
 Links para os projetos de todas as camadas:
 
-- [x] [App Mobile - React Native](https://github.com/wilsonneto-dev/Semana_Omnistack_9_Front_Mobile_ReactNative.git =300x)
+- [x] [App Mobile - React Native](https://github.com/wilsonneto-dev/Semana_Omnistack_9_Front_Mobile_ReactNative.git)
 
-- [x] [App Web - ReactJS](https://github.com/wilsonneto-dev/Semana_Omnistack_9_Front_Web_ReactJS.git =300x)
+- [x] [App Web - ReactJS](https://github.com/wilsonneto-dev/Semana_Omnistack_9_Front_Web_ReactJS.git)
 
-- [x] [API - Node](https://github.com/wilsonneto-dev/Semana_Omnistack_9_Server_Node =300x)
+- [x] [API - Node](https://github.com/wilsonneto-dev/Semana_Omnistack_9_Server_Node)
 
 
 Abaixo prints da aplicação rodando:
 
-![](/github/img1.png)
-![](/github/img2.png)
-![](/github/img3.png)
+![](/github/img1.png =300x)
+![](/github/img2.png =300x)
+![](/github/img3.png =300x)
