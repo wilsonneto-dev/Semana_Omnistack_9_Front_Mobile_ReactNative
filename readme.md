@@ -19,8 +19,6 @@ Links para os projetos de todas as camadas:
 
 Abaixo prints da aplicação rodando:
 
-![](/github/img1.png){:width="350px"}
-![](/github/img2.png){:width="350px"}
-![](/github/img3.png){:width="350px"}
-
+<img src="/github/img1.png" width="350">
+<img src="/github/img2.png" width="350">
 <img src="/github/img3.png" width="350">
