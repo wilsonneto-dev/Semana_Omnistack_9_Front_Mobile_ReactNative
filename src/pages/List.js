@@ -6,8 +6,11 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+
+import socketio from 'socket.io-client';
 
 import SpotList from '../components/SpotList';
 
@@ -27,6 +30,20 @@ export default function List() {
       setTechs(arrTechs);
     }
   };
+
+  useEffect(() => {
+    AsyncStorage.getItem('user').then(user_id => {
+      const socket = socketio('http://10.0.3.2:3333/', {
+        query: { user_id }
+      });
+
+      socket.on('booking_response', booking => {
+        console.log('booking_response', booking);
+        Alert.alert(`Sua reserva em ${booking.spot.company} em ${booking.date} foi ${booking.approved ? 'aprovada' : 'rejeitada'}`
+        );
+      })
+    })
+  },[]);
 
   useEffect(() => {
     initialize();
